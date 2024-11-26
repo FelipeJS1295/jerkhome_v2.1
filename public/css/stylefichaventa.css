@@ -1,0 +1,91 @@
+/* Estilo para el contenedor principal */
+.ficha-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Título de la ficha */
+.ficha-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Estilo para las filas */
+.ficha-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ficha-row:last-child {
+    border-bottom: none;
+}
+
+/* Estilo para los nombres de campos */
+.ficha-label {
+    font-weight: bold;
+    color: #555;
+    text-transform: capitalize;
+}
+
+/* Estilo para los valores */
+.ficha-value {
+    color: #333;
+}
+
+/* Botones */
+.ficha-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.ficha-buttons a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.ficha-buttons a.edit {
+    background-color: #4CAF50;
+}
+
+.ficha-buttons a.edit:hover {
+    background-color: #45a049;
+}
+
+.ficha-buttons a.back {
+    background-color: #007BFF;
+}
+
+.ficha-buttons a.back:hover {
+    background-color: #0056b3;
+}
+
+.ficha-buttons form button {
+    background-color: #DC3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ficha-buttons form button:hover {
+    background-color: #c82333;
+}

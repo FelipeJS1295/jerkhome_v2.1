@@ -1,0 +1,254 @@
+/* Dashboard Container */
+.prod-dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Header Styles */
+.prod-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.prod-title-section {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.prod-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.prod-counter {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+.prod-btn-create {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(to right, #4f46e5, #818cf8);
+    color: white;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.prod-btn-create:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+}
+
+/* Alert Styles */
+.prod-alert-success {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background-color: #ecfdf5;
+    border-left: 4px solid #10b981;
+    border-radius: 0.5rem;
+    color: #047857;
+    margin-bottom: 2rem;
+}
+
+/* Table Container */
+.prod-table-container {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+/* Table Styles */
+.prod-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.prod-thead {
+    background-color: #f8fafc;
+}
+
+.prod-th {
+    padding: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #6b7280;
+    letter-spacing: 0.05em;
+    text-align: left;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.prod-th-actions {
+    width: 120px;
+    text-align: center;
+}
+
+.prod-tr {
+    transition: all 0.2s ease;
+}
+
+.prod-tr:hover {
+    background-color: #f9fafb;
+}
+
+.prod-td {
+    padding: 1rem;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.prod-td-id {
+    font-family: monospace;
+    color: #6b7280;
+}
+
+/* Worker Cell */
+.prod-worker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.prod-worker i {
+    color: #6b7280;
+}
+
+/* Date Cell */
+.prod-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+}
+
+/* Order Number */
+.prod-order-number {
+    font-family: monospace;
+    font-weight: 500;
+}
+
+/* Action Buttons */
+.prod-action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.prod-btn-edit,
+.prod-btn-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.prod-btn-edit {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.prod-btn-edit:hover {
+    background-color: #fde68a;
+    transform: scale(1.05);
+}
+
+.prod-btn-delete {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.prod-btn-delete:hover {
+    background-color: #fecaca;
+    transform: scale(1.05);
+}
+
+/* Empty State */
+.prod-empty-state {
+    padding: 3rem !important;
+}
+
+.prod-empty-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: #9ca3af;
+}
+
+.prod-empty-content i {
+    font-size: 2.5rem;
+}
+
+.prod-empty-content p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .prod-dashboard {
+        padding: 1rem;
+    }
+
+    .prod-table-container {
+        border-radius: 0.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .prod-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .prod-btn-create {
+        text-align: center;
+    }
+
+    .prod-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .prod-td,
+    .prod-th {
+        padding: 0.75rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .prod-dashboard {
+        padding: 0;
+    }
+
+    .prod-btn-create,
+    .prod-action-buttons {
+        display: none;
+    }
+
+    .prod-table-container {
+        box-shadow: none;
+    }
+}

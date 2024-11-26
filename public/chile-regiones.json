@@ -1,0 +1,136 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": { "codigo": "XV", "region": "Arica y Parinacota" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-69.5, -17.5], [-70, -18.2], [-70.5, -18.5], [-69.5, -17.5]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "I", "region": "Tarapacá" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-69.5, -18.2], [-70, -19.2], [-70.5, -20], [-69.5, -18.2]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "II", "region": "Antofagasta" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-70.5, -20], [-71, -21.5], [-70, -23.5], [-70.5, -20]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "III", "region": "Atacama" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-70, -23.5], [-70.5, -26], [-70.8, -27.2], [-70, -23.5]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "IV", "region": "Coquimbo" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-70.8, -27.2], [-71, -30], [-71.5, -31.5], [-70.8, -27.2]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "V", "region": "Valparaíso" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-71.5, -31.5], [-71.7, -33], [-71.5, -34], [-71.5, -31.5]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "RM", "region": "Región Metropolitana" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-71.5, -34], [-71.7, -35], [-71.3, -35.5], [-71.5, -34]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "VI", "region": "O'Higgins" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-71.3, -35.5], [-71.7, -36], [-71.5, -37], [-71.3, -35.5]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "VII", "region": "Maule" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-71.5, -37], [-71.8, -38], [-72, -39], [-71.5, -37]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "VIII", "region": "Biobío" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-72, -39], [-72.5, -40], [-72.8, -41], [-72, -39]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "X", "region": "Los Lagos" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-72.8, -41], [-73, -42.5], [-73.5, -44], [-72.8, -41]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "XI", "region": "Aysén" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-73.5, -44], [-74, -47], [-74.5, -48], [-73.5, -44]]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": { "codigo": "XII", "region": "Magallanes" },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [[-74.5, -48], [-75, -52], [-74, -54], [-74.5, -48]]
+          ]
+        }
+      }
+    ]
+  }
+  

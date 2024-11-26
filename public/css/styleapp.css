@@ -1,0 +1,62 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    min-height: 100vh;
+}
+
+.app-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    transition: margin-left 0.3s ease;
+}
+
+.content-area {
+    padding: 2rem;
+    margin-top: 70px;
+    min-height: calc(100vh - 70px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .content-area {
+        padding: 1rem;
+    }
+}
+
+/* Utility classes for scrolling behavior */
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* Print styles */
+@media print {
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar,
+    .admin-header {
+        display: none;
+    }
+    
+    .content-area {
+        margin-top: 0;
+        padding: 0;
+    }
+}

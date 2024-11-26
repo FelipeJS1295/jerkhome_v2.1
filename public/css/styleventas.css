@@ -1,0 +1,461 @@
+/* Variables principales */
+:root {
+    --primary: #4361ee;
+    --primary-light: #4895ef;
+    --primary-dark: #3f37c9;
+    --secondary: #6c757d;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #3b82f6;
+    
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    
+    --radius-sm: 0.375rem;
+    --radius: 0.5rem;
+    --radius-lg: 0.75rem;
+}
+
+/* Container principal */
+.sl-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: var(--gray-50);
+}
+
+/* Header Styles */
+.sl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.sl-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sl-title {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin: 0;
+}
+
+.sl-header-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Botones */
+.sl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.sl-btn i {
+    font-size: 1rem;
+}
+
+.sl-btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.sl-btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.sl-btn-secondary {
+    background-color: white;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+}
+
+.sl-btn-secondary:hover {
+    background-color: var(--gray-50);
+    border-color: var(--gray-300);
+}
+
+/* Alerts */
+.sl-alert {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+}
+
+.sl-alert-success {
+    background-color: #ecfdf5;
+    border-left: 4px solid var(--success);
+    color: #065f46;
+}
+
+.sl-alert-danger {
+    background-color: #fef2f2;
+    border-left: 4px solid var(--danger);
+    color: #991b1b;
+}
+
+/* Filtros */
+.sl-filters {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.sl-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.sl-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Inputs y Labels */
+.sl-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--gray-600);
+}
+
+.sl-input-icon-wrapper {
+    position: relative;
+}
+
+.sl-input-icon-wrapper i {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    pointer-events: none;
+}
+
+.sl-input,
+.sl-select {
+    width: 100%;
+    padding: 0.625rem 1rem 0.625rem 2.5rem;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    background-color: white;
+    color: var(--gray-700);
+    transition: all 0.2s ease;
+}
+
+.sl-input:focus,
+.sl-select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+/* Tabla */
+.sl-table-container {
+    background-color: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.sl-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sl-th {
+    padding: 1rem;
+    background-color: var(--gray-50);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    text-align: left;
+    border-bottom: 2px solid var(--gray-200);
+}
+
+.sl-td {
+    padding: 1rem;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.sl-tr:hover {
+    background-color: var(--gray-50);
+}
+
+/* Estado */
+.sl-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.sl-status-new {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+.sl-status-dispatched {
+    background-color: #f0fdf4;
+    color: #166534;
+}
+
+/* Botones de acción */
+.sl-action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.sl-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sl-btn-view {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.sl-btn-edit {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.sl-btn-delete {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.sl-action-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Checkbox personalizado */
+.sl-checkbox {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+.sl-checkbox input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.sl-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: white;
+    border: 2px solid var(--gray-300);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.sl-checkbox:hover input ~ .sl-checkmark {
+    border-color: var(--primary);
+}
+
+.sl-checkbox input:checked ~ .sl-checkmark {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.sl-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.sl-checkbox input:checked ~ .sl-checkmark:after {
+    display: block;
+}
+
+/* Bulk Actions */
+.sl-bulk-actions {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Empty State */
+.sl-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem;
+    color: var(--gray-400);
+}
+
+.sl-empty-state i {
+    font-size: 2.5rem;
+}
+
+.sl-empty-state p {
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+/* Paginación */
+.sl-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .sl-filter-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .sl-container {
+        padding: 1rem;
+    }
+
+    .sl-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .sl-header-actions {
+        width: 100%;
+    }
+
+    .sl-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .sl-filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sl-bulk-actions {
+        flex-direction: column;
+    }
+
+    .sl-table {
+        font-size: 0.875rem;
+    }
+
+    .sl-action-buttons {
+        flex-direction: column;
+    }
+
+    .sl-action-btn {
+        width: 100%;
+        padding: 0.5rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sl-alert {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Utilidades adicionales */
+.sl-order-number,
+.sl-sku {
+    font-family: monospace;
+    font-size: 0.875rem;
+}
+
+.sl-price {
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+/* Print styles */
+@media print {
+    .sl-container {
+        padding: 0;
+        background: white;
+    }
+
+    .sl-header-actions,
+    .sl-filters,
+    .sl-bulk-actions,
+    .sl-action-buttons {
+        display: none;
+    }
+
+    .sl-table-container {
+        box-shadow: none;
+    }
+
+    .sl-tr {
+        break-inside: avoid;
+    }
+}

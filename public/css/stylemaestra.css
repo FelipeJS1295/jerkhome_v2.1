@@ -1,0 +1,198 @@
+.master-view {
+    padding: 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.master-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.master-header h1 {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.action-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+.master-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.master-table th,
+.master-table td {
+    text-align: center;
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+}
+
+.master-table th {
+    background-color: #f4f6f9;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.product-column {
+    text-align: left;
+    min-width: 200px;
+}
+
+.total-column {
+    background-color: #f9fafb;
+    font-weight: bold;
+}
+
+.client-header td {
+    text-align: left;
+    padding: 0.75rem;
+    background-color: #e9ecef;
+    font-weight: bold;
+    color: #333;
+    border-top: 2px solid #dee2e6;
+}
+
+.product-row td {
+    padding: 0.75rem;
+    color: #555;
+    white-space: nowrap;
+}
+
+.quantity-cell {
+    text-align: center;
+    color: #444;
+    font-size: 0.875rem;
+}
+
+.total-cell {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #000;
+}
+
+.client-total td {
+    text-align: center;
+    font-weight: bold;
+    background-color: #f1f3f5;
+}
+
+.grand-total td {
+    text-align: center;
+    font-weight: bold;
+    background-color: #007bff;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .master-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .master-table th,
+    .master-table td {
+        font-size: 0.75rem;
+        padding: 0.5rem;
+    }
+
+    .product-column {
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .master-header h1 {
+        font-size: 1.25rem;
+    }
+
+    .action-button {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .master-table th,
+    .master-table td {
+        font-size: 0.7rem;
+        padding: 0.3rem;
+    }
+
+    .product-column {
+        min-width: 100px;
+    }
+}
+@media print {
+    /* Oculta todo excepto la tabla */
+    body * {
+        visibility: hidden;
+    }
+
+    .master-table, .master-table * {
+        visibility: visible;
+    }
+
+    .master-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        margin: 0 auto;
+    }
+
+    .master-table th,
+    .master-table td {
+        border: 1px solid #000; /* Líneas visibles para imprimir */
+        padding: 5px;
+        text-align: center;
+    }
+
+    .master-table th {
+        font-weight: bold;
+        background-color: #f3f3f3; /* Fondo claro para distinguir los encabezados */
+    }
+
+    .master-table td {
+        background-color: #fff; /* Fondo blanco para celdas */
+    }
+
+    /* Elimina cualquier fondo o sombra en la tabla */
+    .table-wrapper {
+        overflow: visible;
+        background: none;
+        box-shadow: none;
+    }
+}
