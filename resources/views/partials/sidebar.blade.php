@@ -34,7 +34,7 @@
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('finanzas.index') }}" class="nav-link">
                         <i class="fa fa-wallet"></i>
                         <span>Finanzas</span>
                     </a>
@@ -48,7 +48,7 @@
                 </li>
 
                 <li>
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('logistica.index') }}" class="nav-link">
                         <i class="fa fa-truck"></i>
                         <span>Logística</span>
                     </a>

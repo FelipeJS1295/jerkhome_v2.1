@@ -10,7 +10,7 @@ class TrabajadorController extends Controller
     public function index()
     {
         $trabajadores = DB::table('trabajadores')->get();
-        return view('rrhh.index', compact('trabajadores'));
+        return view('rrhh.trabajadores.index', compact('trabajadores'));
     }
 
     public function create()
@@ -18,7 +18,7 @@ class TrabajadorController extends Controller
         $users = DB::table('users')->select('id', 'nombre_usuario', 'email')->get();
         $afp = ['AFP Habitat', 'AFP Cuprum', 'AFP Capital', 'AFP Provida', 'AFP Modelo'];
         $salud = ['Fonasa', 'Isapre Colmena', 'Isapre Cruz Blanca', 'Isapre Banmédica', 'Isapre Vida Tres'];
-        return view('rrhh.create', compact('users', 'afp', 'salud'));
+        return view('rrhh.trabajadores.create', compact('users', 'afp', 'salud'));
     }
 
     public function store(Request $request)
@@ -42,7 +42,7 @@ class TrabajadorController extends Controller
 
         DB::table('trabajadores')->insert($validatedData);
 
-        return redirect()->route('rrhh.index')->with('success', 'Trabajador agregado exitosamente');
+        return redirect()->route('rrhh.trabajadores.index')->with('success', 'Trabajador agregado exitosamente');
     }
 
     public function edit($id)
@@ -51,7 +51,7 @@ class TrabajadorController extends Controller
         $afp = ['AFP Habitat', 'AFP Cuprum', 'AFP Capital', 'AFP Provida', 'AFP Modelo'];
         $salud = ['Fonasa', 'Isapre Colmena', 'Isapre Cruz Blanca', 'Isapre Banmédica', 'Isapre Vida Tres'];
 
-        return view('rrhh.edit', compact('trabajador', 'afp', 'salud'));
+        return view('rrhh.trabajadores.edit', compact('trabajador', 'afp', 'salud'));
     }
 
     public function update(Request $request, $id)
@@ -75,12 +75,12 @@ class TrabajadorController extends Controller
 
         DB::table('trabajadores')->where('id', $id)->update($validatedData);
 
-        return redirect()->route('rrhh.index')->with('success', 'Trabajador actualizado exitosamente');
+        return redirect()->route('rrhh.trabajadores.index')->with('success', 'Trabajador actualizado exitosamente');
     }
 
     public function destroy($id)
     {
         DB::table('trabajadores')->where('id', $id)->delete();
-        return redirect()->route('rrhh.index')->with('success', 'Trabajador eliminado exitosamente');
+        return redirect()->route('rrhh.trabajadores.index')->with('success', 'Trabajador eliminado exitosamente');
     }
 }

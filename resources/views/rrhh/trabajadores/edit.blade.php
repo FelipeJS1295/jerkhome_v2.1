@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>{{ isset($trabajador) ? 'Editar Trabajador' : 'Agregar Trabajador' }}</h1>
-    <form action="{{ isset($trabajador) ? route('rrhh.update', $trabajador->id) : route('rrhh.store') }}" method="POST">
+    <form action="{{ isset($trabajador) ? route('rrhh.trabajadores.update', $trabajador->id) : route('rrhh.trabajadores.store') }}" method="POST">
         @csrf
         @if(isset($trabajador))
             @method('PUT')

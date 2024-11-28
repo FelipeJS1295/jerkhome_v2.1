@@ -146,19 +146,31 @@ class VentaController extends Controller
         }
     
         try {
-            // Leer el archivo Excel
+            // Leer el archivo Excel utilizando PhpSpreadsheet
             $path = $request->file('archivo')->getRealPath();
-            $data = Excel::toArray([], $path);
+            $extension = $request->file('archivo')->getClientOriginalExtension();
     
-            if (empty($data) || count($data[0]) === 0) {
+            // Seleccionar el lector adecuado basado en la extensión
+            $reader = match ($extension) {
+                'xlsx' => new \PhpOffice\PhpSpreadsheet\Reader\Xlsx(),
+                'xls' => new \PhpOffice\PhpSpreadsheet\Reader\Xls(),
+                'csv' => new \PhpOffice\PhpSpreadsheet\Reader\Csv(),
+                default => throw new \Exception('Formato de archivo no soportado.'),
+            };
+    
+            // Cargar los datos del archivo
+            $spreadsheet = $reader->load($path);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+    
+            // Verificar si los datos están vacíos o no tienen filas válidas
+            if (empty($data) || count($data) <= 1) {
                 return back()->withErrors(['error' => 'El archivo está vacío o no tiene un formato válido.']);
             }
     
-            $rows = $data[0];
             $processedData = [];
     
-            foreach ($rows as $index => $row) {
-                // Saltar la fila de encabezados
+            foreach ($data as $index => $row) {
+                // Saltar la fila de encabezados (asumiendo que es la primera fila)
                 if ($index === 0) {
                     continue;
                 }
@@ -168,7 +180,7 @@ class VentaController extends Controller
                 // Verificar si la orden ya existe en la base de datos
                 $yaExiste = Venta::where('numero_orden', $numeroOrden)->exists();
     
-                // Procesar y formatear los datos del Excel
+                // Procesar y mapear los datos del Excel
                 $processedData[] = [
                     'numero_orden' => $numeroOrden,
                     'cliente_id' => 2, // Asignar cliente_id como 2
@@ -194,17 +206,20 @@ class VentaController extends Controller
                     'giro' => $row[22] ?? null,
                     'direccion_factura' => $row[23] ?? null,
                     'currier' => $row[27] ?? null,
-                    'ya_existe' => $yaExiste, // Agregar la clave ya_existe
+                    'ya_existe' => $yaExiste, // Indicar si la orden ya existe
                 ];
             }
     
             // Redirigir a la vista preview con los datos procesados
             return view('ventas.preview', ['ventas' => $processedData]);
     
+        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+            return back()->withErrors(['error' => 'Error al leer el archivo: ' . $e->getMessage()]);
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Error al procesar el archivo: ' . $e->getMessage()]);
         }
     }
+    
     
 
     public function preview(Request $request)
@@ -420,18 +435,30 @@ class VentaController extends Controller
         }
     
         try {
-            // Leer el archivo Excel
+            // Obtener el archivo y su extensión
             $path = $request->file('archivo')->getRealPath();
-            $data = Excel::toArray([], $path);
+            $extension = $request->file('archivo')->getClientOriginalExtension();
     
-            if (empty($data) || count($data[0]) === 0) {
+            // Seleccionar el lector adecuado basado en la extensión
+            $reader = match ($extension) {
+                'xlsx' => new \PhpOffice\PhpSpreadsheet\Reader\Xlsx(),
+                'xls' => new \PhpOffice\PhpSpreadsheet\Reader\Xls(),
+                'csv' => new \PhpOffice\PhpSpreadsheet\Reader\Csv(),
+                default => throw new \Exception('Formato de archivo no soportado.'),
+            };
+    
+            // Cargar los datos del archivo
+            $spreadsheet = $reader->load($path);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+    
+            // Validar que el archivo no esté vacío
+            if (empty($data) || count($data) <= 1) {
                 return back()->withErrors(['error' => 'El archivo está vacío o no tiene un formato válido.']);
             }
     
-            $rows = $data[0];
             $processedData = [];
     
-            foreach ($rows as $index => $row) {
+            foreach ($data as $index => $row) {
                 // Saltar la fila de encabezados
                 if ($index === 0) {
                     continue;
@@ -447,9 +474,9 @@ class VentaController extends Controller
                 $processedData[] = [
                     'numero_orden' => $numeroOrden,
                     'cliente_id' => 3, // ID del cliente asociado a Walmart
-                    'fecha_compra' => isset($row[2]) ? Carbon::createFromFormat('Y-m-d', $row[2])->format('d-m-Y') : null,
-                    'fecha_entrega' => isset($row[3]) ? Carbon::createFromFormat('Y-m-d', $row[3])->format('d-m-Y') : null,
-                    'fecha_cliente' => isset($row[4]) ? Carbon::createFromFormat('Y-m-d', $row[4])->format('d-m-Y') : null,
+                    'fecha_compra' => isset($row[2]) ? Carbon::parse($row[2])->format('d-m-Y') : null,
+                    'fecha_entrega' => isset($row[3]) ? Carbon::parse($row[3])->format('d-m-Y') : null,
+                    'fecha_cliente' => isset($row[4]) ? Carbon::parse($row[4])->format('d-m-Y') : null,
                     'cliente_final' => $row[5] ?? null,
                     'rut_documento' => $row[12] ?? null,
                     'email' => null, // Campo faltante
@@ -460,7 +487,7 @@ class VentaController extends Controller
                     'sku' => $row[24] ?? null,
                     'producto' => $row[21] ?? null,
                     'precio' => isset($row[25]) ? intval($row[25]) : null, // Precio base
-                    'precio_cliente' => isset($row[25], $row[27]) ? intval($row[25]) + intval($row[27]) : 0, // Precio + impuesto
+                    'precio_cliente' => $precio, // Precio + impuesto
                     'costo_despacho' => isset($row[26]) ? intval($row[26]) : null,
                     'estado' => 'Nueva', // Estado por defecto
                     'documento' => null, // Campo faltante
@@ -471,17 +498,20 @@ class VentaController extends Controller
                     'currier' => $row[30] ?? null,
                     'created_at' => Carbon::now(), // Fecha actual como predeterminada
                     'updated_at' => Carbon::now(), // Fecha actual como predeterminada
-                    'ya_existe' => $yaExiste, // Agregar la clave ya_existe
+                    'ya_existe' => $yaExiste, // Indicar si ya existe
                 ];
             }
     
             // Redirigir a la vista preview con los datos procesados
             return view('ventas.previewwalmart', ['ventas' => $processedData]);
     
+        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+            return back()->withErrors(['error' => 'Error al leer el archivo: ' . $e->getMessage()]);
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Error al procesar el archivo: ' . $e->getMessage()]);
         }
     }
+    
 
     public function storeFromPreviewwalmart(Request $request)
     {
@@ -561,18 +591,30 @@ class VentaController extends Controller
         }
     
         try {
-            // Leer el archivo Excel
+            // Obtener el archivo y su extensión
             $path = $request->file('archivo')->getRealPath();
-            $data = Excel::toArray([], $path);
+            $extension = $request->file('archivo')->getClientOriginalExtension();
     
-            if (empty($data) || count($data[0]) === 0) {
+            // Seleccionar el lector adecuado según la extensión
+            $reader = match ($extension) {
+                'xlsx' => new \PhpOffice\PhpSpreadsheet\Reader\Xlsx(),
+                'xls' => new \PhpOffice\PhpSpreadsheet\Reader\Xls(),
+                'csv' => new \PhpOffice\PhpSpreadsheet\Reader\Csv(),
+                default => throw new \Exception('Formato de archivo no soportado.'),
+            };
+    
+            // Cargar los datos del archivo
+            $spreadsheet = $reader->load($path);
+            $data = $spreadsheet->getActiveSheet()->toArray();
+    
+            // Validar que el archivo no esté vacío
+            if (empty($data) || count($data) <= 1) {
                 return back()->withErrors(['error' => 'El archivo está vacío o no tiene un formato válido.']);
             }
     
-            $rows = $data[0];
             $processedData = [];
     
-            foreach ($rows as $index => $row) {
+            foreach ($data as $index => $row) {
                 // Saltar la fila de encabezados
                 if ($index === 0) {
                     continue;
@@ -587,8 +629,8 @@ class VentaController extends Controller
                 $processedData[] = [
                     'numero_orden' => $numeroOrden,
                     'cliente_id' => 4, // ID del cliente asociado a Falabella
-                    'fecha_compra' => isset($row[3]) ? Carbon::createFromFormat('M d, Y H:i', $row[3])->format('d-m-Y') : null,
-                    'fecha_entrega' => isset($row[50]) ? Carbon::createFromFormat('M d, Y H:i', $row[50])->format('d-m-Y') : null,
+                    'fecha_compra' => isset($row[3]) ? Carbon::parse($row[3])->format('d-m-Y') : null,
+                    'fecha_entrega' => isset($row[50]) ? Carbon::parse($row[50])->format('d-m-Y') : null,
                     'cliente_final' => $row[9] ?? null,
                     'rut_documento' => $row[11] ?? null,
                     'direccion' => $row[13] ?? null,
@@ -602,19 +644,19 @@ class VentaController extends Controller
                     'currier' => $row[42] ?? null,
                     'estado' => 'Nueva', // Estado por defecto
                     'documento' => $row[8] ?? null,
-                    'ya_existe' => $yaExiste, // Agregar la clave ya_existe
+                    'ya_existe' => $yaExiste, // Indicar si ya existe
                 ];
             }
     
             // Redirigir a la vista preview con los datos procesados
             return view('ventas.previewfalabella', ['ventas' => $processedData]);
     
+        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+            return back()->withErrors(['error' => 'Error al leer el archivo: ' . $e->getMessage()]);
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Error al procesar el archivo: ' . $e->getMessage()]);
         }
     }
-    
-    
 
     public function storeFromPreviewFalabella(Request $request)
     {

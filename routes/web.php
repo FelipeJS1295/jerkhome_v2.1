@@ -11,7 +11,23 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\TrabajadorController;
 use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\RecursosHumanosController;
+use App\Http\Controllers\HorasExtrasController;
+use App\Http\Controllers\FaltasController;
+use App\Http\Controllers\VacacionesController;
+use App\Http\Controllers\BonosController;
+use App\Http\Controllers\PlanillaSueldosController;
+use App\Http\Controllers\QuincenasController;
+use App\Http\Controllers\AnticiposController;
+use App\Http\Controllers\PrestamosController;
+use App\Http\Controllers\FinanzasController;
+use App\Http\Controllers\CreditosController;
+use App\Http\Controllers\BoletasExtrasController;
+use App\Http\Controllers\GastosExtrasController;
+use App\Http\Controllers\IVAController;
+use App\Http\Controllers\FacturasComprasController;
+use App\Http\Controllers\LogisticaController;
+use App\Http\Controllers\DespachosController;
 
 
 // Página de inicio
@@ -158,16 +174,6 @@ Route::post('/productos/{id}/copy', [ProductoController::class, 'storeCopy'])->n
         Route::get('/ventas/maestra', [VentaController::class, 'maestra'])->name('ventas.maestra');
     });
 
-
-
-    Route::prefix('rrhh')->group(function () {
-        Route::get('/', [TrabajadorController::class, 'index'])->name('rrhh.index');
-        Route::get('/create', [TrabajadorController::class, 'create'])->name('rrhh.create');
-        Route::post('/store', [TrabajadorController::class, 'store'])->name('rrhh.store');
-        Route::get('/{id}/edit', [TrabajadorController::class, 'edit'])->name('rrhh.edit');
-        Route::put('/{id}', [TrabajadorController::class, 'update'])->name('rrhh.update');
-        Route::delete('/{id}', [TrabajadorController::class, 'destroy'])->name('rrhh.destroy');
-    });
     
     Route::prefix('produccion')->group(function () {
         Route::get('/', [ProduccionController::class, 'index'])->name('produccion.index');
@@ -181,5 +187,186 @@ Route::post('/productos/{id}/copy', [ProductoController::class, 'storeCopy'])->n
 
     });
 
+    Route::prefix('rrhh')->group(function () {
+        Route::get('/', [RecursosHumanosController::class, 'index'])->name('rrhh.index');
+    
+    // Trabajadores
+        Route::prefix('trabajadores')->group(function () {
+            Route::get('/', [TrabajadorController::class, 'index'])->name('rrhh.trabajadores.index');
+            Route::get('/create', [TrabajadorController::class, 'create'])->name('rrhh.trabajadores.create');
+            Route::post('/store', [TrabajadorController::class, 'store'])->name('rrhh.trabajadores.store');
+            Route::get('/{id}/edit', [TrabajadorController::class, 'edit'])->name('rrhh.trabajadores.edit');
+            Route::put('/{id}', [TrabajadorController::class, 'update'])->name('rrhh.trabajadores.update');
+            Route::delete('/{id}', [TrabajadorController::class, 'destroy'])->name('rrhh.trabajadores.destroy');
+        });
+    
+        // Sueldos
+        Route::get('/rrhh/planilla-sueldos', [PlanillaSueldosController::class, 'index'])->name('rrhh.planilla_sueldos.index');
+    
+        // Horas Extras
+        Route::get('/horas-extras', [RecursosHumanosController::class, 'extraHours'])->name('rrhh.horas_extras.index');
+
+        Route::prefix('rrhh/horas-extras')->group(function () {
+            // Vista principal de horas extras (lista de todas las horas extras registradas)
+            Route::get('/', [HorasExtrasController::class, 'index'])->name('rrhh.horas_extras.index');
+        
+            // Crear nuevas horas extras
+            Route::get('/create', [HorasExtrasController::class, 'create'])->name('rrhh.horas_extras.create');
+            Route::post('/store', [HorasExtrasController::class, 'store'])->name('rrhh.horas_extras.store');
+        
+            // Editar horas extras existentes
+            Route::get('/{id}/edit', [HorasExtrasController::class, 'edit'])->name('rrhh.horas_extras.edit');
+            Route::put('/{id}', [HorasExtrasController::class, 'update'])->name('rrhh.horas_extras.update');
+        
+            // Eliminar horas extras existentes
+            Route::delete('/{id}', [HorasExtrasController::class, 'destroy'])->name('rrhh.horas_extras.destroy');
+        });
+    
+        // Faltas
+        Route::get('/faltas', [RecursosHumanosController::class, 'absences'])->name('rrhh.faltas.index');
+
+        Route::prefix('rrhh/faltas')->group(function () {
+            Route::get('/', [FaltasController::class, 'index'])->name('rrhh.faltas.index');
+            Route::get('/create-dia', [FaltasController::class, 'createDia'])->name('rrhh.faltas.create_dia');
+            Route::get('/create-horas', [FaltasController::class, 'createHoras'])->name('rrhh.faltas.create_horas');
+            Route::post('/store', [FaltasController::class, 'store'])->name('rrhh.faltas.store');
+        });
+    
+        // Vacaciones
+        Route::get('/vacaciones', [RecursosHumanosController::class, 'vacations'])->name('rrhh.vacaciones.index');
+
+        Route::prefix('rrhh/vacaciones')->group(function () {
+            Route::get('/', [VacacionesController::class, 'index'])->name('rrhh.vacaciones.index');
+            Route::get('/create', [VacacionesController::class, 'create'])->name('rrhh.vacaciones.create');
+            Route::post('/store', [VacacionesController::class, 'store'])->name('rrhh.vacaciones.store');
+        });
+    
+        // Bonos
+        Route::get('/bonos', [RecursosHumanosController::class, 'bonuses'])->name('rrhh.bonos.index');
+
+        Route::prefix('rrhh/bonos')->group(function () {
+            Route::get('/', [BonosController::class, 'index'])->name('rrhh.bonos.index');
+            Route::get('/create', [BonosController::class, 'create'])->name('rrhh.bonos.create');
+            Route::post('/store', [BonosController::class, 'store'])->name('rrhh.bonos.store');
+        });
+
+        Route::get('/quincenas', [RecursosHumanosController::class, 'quincenass'])->name('rrhh.quincenas.index');
+
+        Route::prefix('rrhh/quincenas')->group(function () {
+            Route::get('/', [QuincenasController::class, 'index'])->name('rrhh.quincenas.index');
+            Route::get('/create', [QuincenasController::class, 'create'])->name('rrhh.quincenas.create');
+            Route::post('/store', [QuincenasController::class, 'store'])->name('rrhh.quincenas.store');
+        });
+
+        Route::prefix('rrhh/anticipos')->group(function () {
+            Route::get('/', [AnticiposController::class, 'index'])->name('rrhh.anticipos.index');
+            Route::get('/create', [AnticiposController::class, 'create'])->name('rrhh.anticipos.create');
+            Route::post('/store', [AnticiposController::class, 'store'])->name('rrhh.anticipos.store');
+        });
+
+        Route::prefix('rrhh/prestamos')->group(function () {
+            Route::get('/', [PrestamosController::class, 'index'])->name('rrhh.prestamos.index');
+            Route::get('/create', [PrestamosController::class, 'create'])->name('rrhh.prestamos.create');
+            Route::post('/store', [PrestamosController::class, 'store'])->name('rrhh.prestamos.store');
+            Route::get('/{id}/edit', [PrestamosController::class, 'edit'])->name('rrhh.prestamos.edit');
+            Route::post('/{id}/registrar-pago', [PrestamosController::class, 'registrarPago'])->name('rrhh.prestamos.registrar_pago');
+            Route::post('/{id}/aplazar-cuota', [PrestamosController::class, 'aplazarCuota'])->name('rrhh.prestamos.aplazar_cuota');
+        });
+    });
+
+    Route::prefix('finanzas')->group(function () {
+        Route::get('/', [FinanzasController::class, 'index'])->name('finanzas.index');
+        Route::get('/creditos', [FinanzasController::class, 'creditos'])->name('finanzas.creditos.index');
+        Route::get('/facturas', [FinanzasController::class, 'facturas'])->name('finanzas.facturas.index');
+        Route::get('/boletas', [FinanzasController::class, 'boletas'])->name('finanzas.boletas.index');
+        Route::get('/gastos', [FinanzasController::class, 'gastos'])->name('finanzas.gastos.index');
+        Route::get('/iva', [FinanzasController::class, 'iva'])->name('finanzas.iva.index');
+    });
+
+    Route::prefix('finanzas/creditos')->group(function () {
+        Route::get('/', [CreditosController::class, 'index'])->name('finanzas.creditos.index');
+        Route::get('/create', [CreditosController::class, 'create'])->name('finanzas.creditos.create');
+        Route::post('/store', [CreditosController::class, 'store'])->name('finanzas.creditos.store');
+        Route::get('/{id}', [CreditosController::class, 'show'])->name('finanzas.creditos.show');
+        Route::get('/{id}/edit', [CreditosController::class, 'edit'])->name('finanzas.creditos.edit');
+        Route::delete('/{id}', [CreditosController::class, 'destroy'])->name('finanzas.creditos.destroy');
+        Route::put('/finanzas/creditos/{id}', [CreditosController::class, 'update'])->name('finanzas.creditos.update');
+    });
+
+    Route::prefix('finanzas/boletas')->group(function () {
+        Route::get('/create', [BoletasExtrasController::class, 'create'])->name('finanzas.boletas.create');
+        Route::post('/store', [BoletasExtrasController::class, 'store'])->name('finanzas.boletas.store');
+        Route::get('/', [BoletasExtrasController::class, 'index'])->name('finanzas.boletas.index');
+        Route::get('/{id}', [BoletasExtrasController::class, 'show'])->name('finanzas.boletas.show');
+        Route::get('/{id}/edit', [BoletasExtrasController::class, 'edit'])->name('finanzas.boletas.edit');
+        Route::delete('/{id}', [BoletasExtrasController::class, 'destroy'])->name('finanzas.boletas.destroy');
+        Route::put('/finanzas/boletas/{id}', [BoletasExtrasController::class, 'update'])->name('finanzas.boletas.update');
+    });
+
+    Route::prefix('finanzas/gastos')->group(function () {
+        Route::get('/create', [GastosExtrasController::class, 'create'])->name('finanzas.gastos.create');
+        Route::post('/store', [GastosExtrasController::class, 'store'])->name('finanzas.gastos.store');
+        Route::get('/', [GastosExtrasController::class, 'index'])->name('finanzas.gastos.index');
+        Route::get('/finanzas/gastos/{id}', [GastosExtrasController::class, 'show'])->name('finanzas.gastos.show');
+        Route::get('/finanzas/gastos/{id}/edit', [GastosExtrasController::class, 'edit'])->name('finanzas.gastos.edit');
+        Route::put('/finanzas/gastos/{id}', [GastosExtrasController::class, 'update'])->name('finanzas.gastos.update');
+        Route::delete('/finanzas/gastos/{id}', [GastosExtrasController::class, 'destroy'])->name('finanzas.gastos.destroy');
+    });
+
+    Route::prefix('finanzas/iva')->group(function () {
+        Route::get('/', [IVAController::class, 'index'])->name('finanzas.iva.index');
+        Route::get('/create', [IVAController::class, 'create'])->name('finanzas.iva.create');
+        Route::post('/store', [IVAController::class, 'store'])->name('finanzas.iva.store');
+        Route::get('/{id}', [IVAController::class, 'show'])->name('finanzas.iva.show');
+        Route::get('/{id}/edit', [IVAController::class, 'edit'])->name('finanzas.iva.edit');
+        Route::put('/{id}', [IVAController::class, 'update'])->name('finanzas.iva.update');
+        Route::delete('/{id}', [IVAController::class, 'destroy'])->name('finanzas.iva.destroy');
+    });
+
+    Route::prefix('finanzas/facturas')->group(function () {
+        Route::get('/create', [FacturasComprasController::class, 'create'])->name('finanzas.facturas.create');
+        Route::post('/store', [FacturasComprasController::class, 'store'])->name('finanzas.facturas.store');
+        Route::get('/', [FacturasComprasController::class, 'index'])->name('finanzas.facturas.index');
+        Route::get('/{id}', [FacturasComprasController::class, 'show'])->name('finanzas.facturas.show');
+        Route::get('/{id}/edit', [FacturasComprasController::class, 'edit'])->name('finanzas.facturas.edit');
+        Route::put('/{id}', [FacturasComprasController::class, 'update'])->name('finanzas.facturas.update');
+        Route::delete('/{id}', [FacturasComprasController::class, 'destroy'])->name('finanzas.facturas.destroy');
+        Route::get('/{id}/pagos', [FacturasComprasController::class, 'pagos'])->name('finanzas.facturas.pagos');
+        Route::post('/{id}/pagos', [FacturasComprasController::class, 'registrarPago'])->name('finanzas.facturas.registrarPago');
+        Route::get('/pagos/{id}/edit', [FacturasComprasController::class, 'editarPago'])->name('finanzas.facturas.pagos.editar');
+        Route::post('/pagos/{id}/update', [FacturasComprasController::class, 'actualizarPago'])->name('finanzas.facturas.pagos.actualizar');
+        Route::delete('/pagos/{id}', [FacturasComprasController::class, 'eliminarPago'])->name('finanzas.facturas.pagos.eliminar');
+    });
+
+    Route::prefix('logistica')->name('logistica.')->group(function () {
+        Route::get('/', [LogisticaController::class, 'index'])->name('index');
+    
+        // Rutas de devoluciones
+        Route::get('/devoluciones', [LogisticaController::class, 'devolucionesIndex'])->name('devoluciones.index');
+    
+        // Rutas de inventario
+        Route::get('/inventario', [LogisticaController::class, 'inventarioIndex'])->name('inventario.index');
+    
+        // Rutas de despachos
+        Route::get('/despachos', [LogisticaController::class, 'despachosIndex'])->name('despachos.index');
+    });
+
+    Route::get('/logistica/inventario/analisis', [LogisticaController::class, 'inventarioAnalisis'])->name('logistica.inventario.analisis');
+    Route::get('/logistica/inventario/ventas', [LogisticaController::class, 'inventarioVentas'])->name('logistica.inventario.ventas');
+    Route::get('/logistica/inventario/dashboard', [LogisticaController::class, 'dashboard'])->name('logistica.inventario.dashboard');
+    Route::post('/logistica/devoluciones/{id}/cambiar-estado', [LogisticaController::class, 'cambiarEstadoDevolucion'])->name('logistica.devoluciones.cambiarEstado');
+    Route::get('/logistica/devoluciones/todas', [LogisticaController::class, 'devolucionesTodas'])->name('logistica.devoluciones.todas');
+
     Route::post('/produccion/generate-report', [ProduccionController::class, 'generateReport'])->name('produccion.generateReport');
+    
+
+    Route::prefix('logistica/despachos')->name('logistica.despachos.')->group(function () {
+        Route::get('/', [DespachosController::class, 'index'])->name('index'); // Lista de despachos
+        Route::get('/create', [DespachosController::class, 'create'])->name('create'); // Formulario para crear despacho
+        Route::post('/', [DespachosController::class, 'store'])->name('store'); // Guardar despacho
+        Route::get('/{id}', [DespachosController::class, 'show'])->name('show'); // Mostrar detalle del despacho
+        Route::get('/{id}/edit', [DespachosController::class, 'edit'])->name('edit'); // Formulario para editar despacho
+        Route::put('/{id}', [DespachosController::class, 'update'])->name('update'); // Actualizar despacho
+        Route::delete('/{id}', [DespachosController::class, 'destroy'])->name('destroy'); // Eliminar despacho
+    });
 });
